@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect} from "react"
 import HangmanImage from "./HangmanImage";
 import WordDisplay from "./WordDisplay";
-import LetterButtonContainer from "./LetterButtonContainer";
 import LetterButton from "./LetterButton";
 
 function Hangman(){
@@ -12,7 +11,7 @@ function Hangman(){
     const [letters,setLetters] = useState(Array(26).fill(0))
     
     useEffect(()=>{
-        getRandomWord(10);
+        getRandomWord(8);
     },[])
 
 
