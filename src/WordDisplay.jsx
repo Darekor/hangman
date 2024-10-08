@@ -1,9 +1,9 @@
 import { useState } from "react"
 
-function WordDisplay({partialWord}){
+function WordDisplay({partialWord, mistakes}){
 
     return(
-        <div>{partialWord.join()}</div>
+        <div>{partialWord.join(' ')}</div>
     )
 }
 

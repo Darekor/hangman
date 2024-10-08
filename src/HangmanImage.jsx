@@ -1,6 +1,59 @@
-function HangmanImage(){
+function HangmanImage({mistakes=0}){
+
+    const IMAGES=[`
+  +---+  
+  |   |  
+      |  
+      |  
+      |  
+      |  
+=========`,`
+  +---+  
+  |   |  
+  O   |  
+      |  
+      |  
+      |  
+=========`,`
+  +---+  
+  |   |  
+  O   |  
+  |   |  
+      |  
+      |  
+=========`,`
+  +---+  
+  |   |  
+  O   |  
+ /|   |  
+      |  
+      |  
+=========`,`
+  +---+  
+  |   |  
+  O   |  
+ /|\\  |  
+      |  
+      |  
+=========`,`
+  +---+  
+  |   |  
+  O   |  
+ /|\\  |  
+ /    |  
+      |  
+=========`,`
+  +---+  
+  |   |  
+  O   |  
+ /|\\  |  
+ / \\  |  
+      |  
+=========`]
     return(
-        <img src="https://placehold.co/300" alt="Placeholder" />
+        <pre>
+			{IMAGES[Math.min(mistakes,6)]}
+		</pre>
     )
 }
 
