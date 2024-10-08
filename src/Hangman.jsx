@@ -1,23 +1,15 @@
 import { useState} from "react"
+import HangmanImage from "./HangmanImage";
+import WordDisplay from "./WordDisplay";
 
 function Hangman(){
 
     const word = "squirrel"
-    const [partialWord,setPartialWord] = useState(["_","_","_","_","_","_","_","_"])
     const [mistakes, setMistakes] = useState(0);
+    const [partialWord,setPartialWord] = useState(["_","_","_","_","_","_","_","_"])
+    const [letters,setLetters] = useState(Array(5).fill(0))
+    
 
-    function makeButtons(){
-        const res = []
-        for (let index = 0; index < 26; index++) {
-            res.push(
-            <button key={index} onClick={
-                ()=>handleButtonClick(String.fromCharCode(97+index))
-            }>
-                {String.fromCharCode(65 + index)}
-            </button>)
-        }
-        return res;
-    }
 
     function findIndices(letter){
         let start = word.indexOf(letter,0);
@@ -39,6 +31,19 @@ function Hangman(){
             })
     }
 
+    function makeButtons(){
+        const res = []
+        for (let index = 0; index < 26; index++) {
+            res.push(
+            <button key={index} onClick={
+                ()=>handleButtonClick(String.fromCharCode(97+index))
+            }>
+                {String.fromCharCode(65 + index)}
+            </button>)
+        }
+        return res;
+    }
+
     function handleButtonClick(letter){
         const indices = findIndices(letter);
         if (indices.length===0){
@@ -47,17 +52,16 @@ function Hangman(){
         else{
             setPartialWord(pw=>fillPartialWord(pw,indices,letter));
         }
-
     }
 
     return(
         <div>
-            <img src="https://placehold.co/300" alt="Placeholder" />
+            <HangmanImage mistakes={mistakes}/>
             <div>
-                {partialWord.join()} + {mistakes}
-            </div>
-            <div>
-                {makeButtons()}
+                <WordDisplay partialWord={partialWord}/>
+                <div>
+                    {makeButtons()}
+                </div>
             </div>
         </div>
     )
