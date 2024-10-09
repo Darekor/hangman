@@ -9,6 +9,7 @@ function Hangman(){
     const [mistakes, setMistakes] = useState(0);
     const [partialWord,setPartialWord] = useState(["_","_","_","_","_","_","_","_"])
     const [letters,setLetters] = useState(Array(26).fill(0))
+    const [gameState,setGameState] = useState("startState")
     
     useEffect(()=>{
         getRandomWord(8);
@@ -43,19 +44,6 @@ function Hangman(){
                                    letterIndex={index}
                                    letterVal={letters[index]} 
                                    handleClick={()=>handleButtonClick(String.fromCharCode(97+index))}/>)
-        }
-        return res;
-    }
-
-    function makeButtons(){
-        const res = []
-        for (let index = 0; index < 26; index++) {
-            res.push(
-            <button key={index} onClick={
-                ()=>handleButtonClick(String.fromCharCode(97+index))
-            }>
-                {String.fromCharCode(65 + index)}
-            </button>)
         }
         return res;
     }
@@ -98,6 +86,7 @@ function Hangman(){
             <HangmanImage mistakes={mistakes}/>
             <div>
                 <WordDisplay partialWord={partialWord} mistakes={mistakes}/>
+                <br />
                 {generateButtons()}
             </div>
         </div>
