@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect} from "react"
 import HangmanImage from "./HangmanImage";
 import WordDisplay from "./WordDisplay";
-import LetterButton from "./LetterButton";
 import LetterButtonContainer from "./LetterButtonContainer";
+import StartWindow from "./StartWindow";
+import EndWindow from "./EndWindow";
+import LoadingWindow from "./LoadingWindow";
 
 function Hangman(){
 
-    const word = useRef("squirrel")
+    const word = useRef()
     const [mistakes, setMistakes] = useState(0);
     const [partialWord,setPartialWord] = useState(["_","_","_","_","_","_","_","_"])
     const [letters,setLetters] = useState(Array(26).fill(0))
@@ -49,28 +51,10 @@ function Hangman(){
         setLetters(Array(26).fill(0));
         setPartialWord(Array(word.current.length).fill('_'));
         setGameState("gameState");
+        setMistakes(0);
     }
 
-    function fillPartialWord(pw,indices,letter){
-        return pw.map((value,index)=>
-            {
-                if (indices.indexOf(index)!==-1){
-                    return letter;
-                }
-                return value;
-            })
-    }
 
-    function generateButtons(){
-        const res = []
-        for (let index = 0; index < letters.length; index++) {
-            res.push(<LetterButton key={index}
-                                   letterIndex={index}
-                                   letterVal={letters[index]} 
-                                   handleClick={()=>handleButtonClick(String.fromCharCode(97+index))}/>)
-        }
-        return res;
-    }
 
     function handleButtonClick(letter){
         const indices = findIndices(letter);
@@ -95,36 +79,50 @@ function Hangman(){
 
         function changeLetter(index,value){
             setLetters(l=>l.map((val,i)=>{
-            if (i===index){
-                return value;
-            }
-            else{
-                return val;
-            }
-    }))}
+                if (i===index){
+                    return value;
+                }
+                else{
+                    return val;
+                }
+            }))
+        }
 
+        function fillPartialWord(pw,indices,letter){
+            return pw.map((value,index)=>
+                {
+                    if (indices.indexOf(index)!==-1){
+                        return letter;
+                    }
+                    return value;
+                })
+        }
     }
 
-    if (gameState==="startState"){
-        return(
-            <div>
-                {gameState}
+    function chooseComponent(){
+        if (gameState==="startState"){
+            return(
+                <StartWindow onStart={()=>getRandomWord(8)}></StartWindow>
+            )}
+        else if (gameState==="loadingState"){
+            return(<LoadingWindow></LoadingWindow>)
+        }
+        else if (gameState==="gameState"){
+            return(<div>
+                <WordDisplay partialWord={partialWord}></WordDisplay>
                 <br />
-                <button onClick={()=>getRandomWord(8)}>Start Game</button>
-            </div>
-        )
+                <LetterButtonContainer letters={letters} handleButtonClick={handleButtonClick}></LetterButtonContainer>
+            </div>)
+        }
+        return(<EndWindow word={word.current} win={gameState==="winState"} onRestart={()=>getRandomWord(8)}></EndWindow>)
     }
+
 
     return(
         <div>
-            {gameState}
-            <button onClick={()=>getRandomWord(8)}>Restart</button>
+            <h1>Hangman</h1>
             <HangmanImage mistakes={mistakes}/>
-            <div>
-                <WordDisplay partialWord={partialWord} mistakes={mistakes} gameState={gameState}/>
-                <br/>
-                <LetterButtonContainer letters={letters} handleButtonClick={handleButtonClick} />
-            </div>
+            {chooseComponent()}
         </div>
     )
 }

@@ -1,10 +1,6 @@
 import { useState } from "react"
 
-function WordDisplay({partialWord, mistakes,gameState}){
-
-    if(gameState==="loadingState"){
-        return(<div>LOADING</div>)
-    }
+function WordDisplay({partialWord}){
 
     return(
         <div>{partialWord.join(' ')}</div>
