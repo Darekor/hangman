@@ -1,6 +1,6 @@
-function LetterButton({letterIndex=0,letterVal=0,handleClick}){
+function LetterButton({letterIndex=0,letterVal=0,className="unpressed-button",handleClick}){
     return (
-        <button disabled={letterVal!==0} onClick={handleClick}>
+        <button className={className} disabled={letterVal!==0} onClick={handleClick}>
             {String.fromCharCode(65 + letterIndex)}
         </button>
     )

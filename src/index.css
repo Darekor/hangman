@@ -7,4 +7,17 @@ button{
     margin: 0px 5px;
     width: 50px;
     padding: 0px;
+    color: white;
+}
+
+.wrong-button{
+    background-color: red;
+}
+
+.correct-button{
+    background-color: green;
+}
+
+.unpressed-button{
+    background-color: blue;
 }
