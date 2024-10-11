@@ -1,7 +1,7 @@
 function StartWindow({onStart}) {
     return(
         <div>
-            <button onClick={onStart}>Start Game</button>
+            <button onClick={onStart}>Try your luck</button>
         </div>
     )
 }

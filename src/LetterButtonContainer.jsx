@@ -6,7 +6,7 @@ function LetterButtonContainer({letters, handleButtonClick}){
         const res = []
         for (let index = 0; index < letters.length; index++) {
             res.push(<LetterButton key={index}
-                                   className={letters[index]===1? "wrong-button" : letters[index]===2 ? "correct-button":"unpressed-button"}
+                                   className={(letters[index]===0? "" : "pressed-button")+" choice-button"}
                                    letterIndex={index}
                                    letterVal={letters[index]} 
                                    handleClick={()=>handleButtonClick(String.fromCharCode(97+index))}/>)
@@ -15,7 +15,7 @@ function LetterButtonContainer({letters, handleButtonClick}){
     }
 
     return (
-        <div>{generateButtons()}</div>
+        <div className="letter-button-container">{generateButtons()}</div>
     )
 }
 

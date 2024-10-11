@@ -1,7 +1,6 @@
 function LoadingWindow() {
     return(
-        <div>
-            SPINNER
+        <div className="spinner">
         </div>
     )
 }

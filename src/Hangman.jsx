@@ -9,9 +9,10 @@ import LoadingWindow from "./LoadingWindow";
 function Hangman(){
 
     const word = useRef()
+    const difficulty = useRef(8);
     const [mistakes, setMistakes] = useState(0);
-    const [partialWord,setPartialWord] = useState(["_","_","_","_","_","_","_","_"])
-    const [letters,setLetters] = useState(Array(26).fill(0))
+    const [partialWord,setPartialWord] = useState([])
+    const [letters,setLetters] = useState()
     const [gameState,setGameState] = useState("startState")
     
     useEffect(()=>{
@@ -23,6 +24,7 @@ function Hangman(){
     useEffect(()=>{
         if (partialWord.join("")===word.current){
             setGameState("winState");
+            setMistakes(0);
         }
     },[partialWord])
 
@@ -31,7 +33,6 @@ function Hangman(){
         setGameState("loadingState");
         const APIREQUEST = `https://api.datamuse.com/words?sp=${start}${'?'.repeat(length-1)}&max=${100}`;
         try{
-            await new Promise(resolve => setTimeout(resolve, 1000));
             const response = await fetch(APIREQUEST);
             if (!response.ok){
                 throw new Error('Network response was not correct');
@@ -102,7 +103,7 @@ function Hangman(){
     function chooseComponent(){
         if (gameState==="startState"){
             return(
-                <StartWindow onStart={()=>getRandomWord(8)}></StartWindow>
+                <StartWindow onStart={()=>getRandomWord(difficulty.current)}></StartWindow>
             )}
         else if (gameState==="loadingState"){
             return(<LoadingWindow></LoadingWindow>)
@@ -114,7 +115,7 @@ function Hangman(){
                 <LetterButtonContainer letters={letters} handleButtonClick={handleButtonClick}></LetterButtonContainer>
             </div>)
         }
-        return(<EndWindow word={word.current} win={gameState==="winState"} onRestart={()=>getRandomWord(8)}></EndWindow>)
+        return(<EndWindow word={word.current} win={gameState==="winState"} onRestart={()=>getRandomWord(difficulty.current)}></EndWindow>)
     }
 
 
