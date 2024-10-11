@@ -1,8 +1,10 @@
-# React + Vite
+# Hangman
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small, thick client, for playing the ["Hangman"](https://en.wikipedia.org/wiki/Hangman_(game)) game against an incredibly malicious but totally fair random word picker.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#Credits
+Thanks to:
+[Datamuse API](https://www.datamuse.com/api/) for providing words API, used to generate words for this project;
+[Chris Horton](https://github.com/chrishorton) for making an [hangman ascii art](https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c), used in project;
+
